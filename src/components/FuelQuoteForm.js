@@ -8,7 +8,7 @@ class FuelQuoteForm extends React.Component {
       this.state = {
          gallons: '',
          date: new Date(),
-         useraddr: '301 Fannin St. Houston Tx. 77002',
+         useraddr: '301 Fannin St. Houston TX, 77002',
          gallons: NaN,
       }
    }
@@ -17,7 +17,7 @@ class FuelQuoteForm extends React.Component {
       this.setState({
          gallons: '',
          date: new Date(),
-         useraddr: '301 Fannin St. Houston Tx. 77002',
+         useraddr: '301 Fannin St. Houston TX, 77002',
          gallons: 0,
          pricepergallon: 0,
          totalcost: 0
@@ -48,10 +48,11 @@ class FuelQuoteForm extends React.Component {
             </fieldset>
 
             <fieldset>
-               Shipping Address: {this.state.useraddr}
+               Delivery Address: {this.state.useraddr}
             </fieldset>
 
             <fieldset>
+               Delivery Date:
             <Calendar>
                onChange={(val) => this.setState({'date':val})}
                value={this.state.date}
