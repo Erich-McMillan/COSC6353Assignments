@@ -75,7 +75,7 @@ class UserProfileForm extends React.Component {
             <fieldset>
             <input
                type='text'
-               placeholder='primary address'
+               placeholder='Primary Address'
                maxLength={100}
                value={this.state.addr1}
                onChange={(e) => {this.setState({addr1:e.target.value})}}
@@ -85,7 +85,7 @@ class UserProfileForm extends React.Component {
             <fieldset>
             <input
                type='text'
-               placeholder='secondary address'
+               placeholder='Secondary Address'
                maxLength={100}
                value={this.state.addr2 ? this.state.addr2: ''}
                onChange={(e) => {this.setState({addr2:e.target.value})}}
@@ -95,7 +95,7 @@ class UserProfileForm extends React.Component {
             <fieldset>
             <input
                type='text'
-               placeholder='city'
+               placeholder='City'
                maxLength={100}
                value={this.state.city ? this.state.city: ''}
                onChange={(e) => {this.setState({city:e.target.value})}}
@@ -106,7 +106,7 @@ class UserProfileForm extends React.Component {
             <input
                className={zipcodeError ? "error" : ""}
                type='text'
-               placeholder='zipcode'
+               placeholder='Zipcode'
                maxLength={9}
                value={this.state.zipcode ? this.state.zipcode: ''}
                onChange={(e) => {this.setState({zipcode:e.target.value})}}
