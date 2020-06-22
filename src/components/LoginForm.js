@@ -39,7 +39,7 @@ class LoginForm extends React.Component {
                     <input
                       className="form-control"
                       type="username"
-                      placeholder="username"
+                      placeholder="Username"
                       value={username}
                       onChange={(e) => {this.setState({username:e.target.value})}} />
                   </fieldset>
@@ -64,7 +64,7 @@ class LoginForm extends React.Component {
                     className="btn"
                     type="submit"
                     onChange={e => {this.login = false}}>
-                    Register
+                    Not a client? Register
                   </button>
 
                 </fieldset>
