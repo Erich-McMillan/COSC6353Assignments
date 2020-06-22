@@ -12,16 +12,16 @@ function App() {
     <main>
       <nav>
         <NavLink exact activeClassName='active' to="/login">
-          Login
+          Login &nbsp;&nbsp;
         </NavLink>
         <NavLink exact activeClassName='active' to="/profile">
-          Profile
+          Manage Profile &nbsp;&nbsp;
         </NavLink>
         <NavLink exact activeClassName='active' to="/fuelquote">
-          FuelQuote
+          Fuel Quote &nbsp;&nbsp;
         </NavLink>
         <NavLink exact activeClassName='active' to="/quotehistory">
-          QuoteHistory
+          Quote History &nbsp;&nbsp;
         </NavLink>
       </nav>
       <Switch>
