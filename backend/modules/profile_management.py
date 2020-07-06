@@ -34,7 +34,7 @@ class street_address():
    @state.setter
    def state(self, new_state):
       # truncate state to 2 characters
-      self._state = new_state[:100] if len(new_state) > 2 else new_state
+      self._state = '' if len(new_state) != 2 else new_state
 
    @property
    def zipcode(self):

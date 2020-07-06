@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
-from backend.modules.authentication import authenticate_user, is_authenticated, get_authenticated_user
-from backend.modules.profile_management import update_profile, get_profile
-from backend.modules.quotes import get_quote, get_quote_history
+import backend.modules.authentication as authentication
+import backend.modules.profile_management as profile_management
+import backend.modules.quotes as quotes
 from backend.modules.database_helper import setup_database
 
 setup_database('https://testurl:20121')
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 def success_handler(data):
     response = jsonify(data)
-    response.status_code = 0
+    response.status_code = 200
     return response
 
 def error_handler(error_code):
@@ -26,7 +26,7 @@ def api():
         "completed" : False
     }
 
-@app.route('/authenticate/<username>.<password_hash>', methods=['GET','POST'])
+@app.route('/authenticate/<username>.<password_hash>', methods=['POST'])
 def authenticate(username: str, password_hash: str):
     """Checks whether the provided password_hash is valid for given user.
 
@@ -37,10 +37,10 @@ def authenticate(username: str, password_hash: str):
         HTTP success if user exists and password hash is a match
         HTTP 405 otherwise
     """
-    # if request.method == 'POST':
-    if authenticate_user(username, password_hash):
+    if authentication.authenticate_user(username, password_hash):
         return success_handler({})
-    return error_handler(405)
+    else:
+        return error_handler(401)
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
@@ -57,15 +57,14 @@ def profile():
 
         On successful GET or POST returns json with current profile data
     """
-    if not is_authenticated():
+    if not authentication.is_authenticated():
         return error_handler(401)
     if request.method == 'POST':
-        return success_handler(update_profile(get_authenticated_user(), request.form))
+        return success_handler(profile_management.update_profile(authentication.get_authenticated_user(), request.form))
     if request.method == 'GET':
-        return success_handler(get_profile(get_authenticated_user()))
-    return error_handler(405)
+        return success_handler(profile_management.get_profile(authentication.get_authenticated_user()))
 
-@app.route('/quote', methods=['GET','POST'])
+@app.route('/quote', methods=['POST'])
 def quote():
     """Gets a quote for user based on pricing module calculations
     
@@ -78,12 +77,11 @@ def quote():
 
         On successful POST returns quote results as json in response.
     """
-    if not is_authenticated():
+    if not authentication.is_authenticated():
         return error_handler(401)
     if request.method == 'POST':
-        user = get_authenticated_user()
-        return get_quote(user, request.form)
-    return error_handler(405)
+        user = authentication.get_authenticated_user()
+        return quotes.get_quote(user, request.form)
 
 @app.route('/quote_history', methods=['GET'])
 def quote_history():
@@ -98,9 +96,8 @@ def quote_history():
 
         On successful GET returns 
     """
-    if not is_authenticated():
+    if not authentication.is_authenticated():
         return error_handler(401)
     if request.method == 'GET':
-        user = get_authenticated_user()
-        return success_handler(get_quote_history(user))
-    return error_handler(405)
+        user = authentication.get_authenticated_user()
+        return success_handler(quotes.get_quote_history(user))
