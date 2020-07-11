@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 
-import LoginForm from './LoginForm'
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import UserProfileForm from './UserProfileForm';
 import FuelQuoteForm from './FuelQuoteForm';
 import FuelQuoteHistoryForm from './FuelQuoteHistoryForm';
@@ -22,6 +23,9 @@ function App() {
         <NavLink exact activeClassName='active' to="/login">
           Login
         </NavLink>
+        <NavLink exact activeClassName='active' to="/register">
+          REgister
+        </NavLink>
         <NavLink exact activeClassName='active' to="/profile">
           Profile
         </NavLink>
@@ -34,6 +38,7 @@ function App() {
       </nav>
       <Switch>
       <Route path="/login" component={LoginForm}/>
+      <Route path="/register" component={RegisterForm}/>
       <Route path="/profile" component={UserProfileForm}/>
       <Route path="/fuelquote" component={FuelQuoteForm}/>
       <Route path="/quotehistory" component={FuelQuoteHistoryForm}/>
