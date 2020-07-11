@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: backend
+Version: 0.1.0
+Summary: backend for Cosc6353 assignments.
+Home-page: UNKNOWN
+Author: Erich McMillan
+Author-email: erich.mcmillan@hp.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.8,<4.0

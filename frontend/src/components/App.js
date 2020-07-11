@@ -9,23 +9,31 @@ import FuelQuoteForm from './FuelQuoteForm';
 import FuelQuoteHistoryForm from './FuelQuoteHistoryForm';
 
 function App() {
+  const [initialData, setInitialData] = useState([{}])
+
+  useEffect(()=>{
+    fetch('/api').then(
+      response => response.json()
+    ).then(data => setInitialData(data))
+  }, []);
+
   return (
     <main>
       <nav>
         <NavLink exact activeClassName='active' to="/login">
-          Login &nbsp;&nbsp;
+          Login
         </NavLink>
         <NavLink exact activeClassName='active' to="/register">
           Register &nbsp;&nbsp;
         </NavLink>
         <NavLink exact activeClassName='active' to="/profile">
-          Manage Profile &nbsp;&nbsp;
+          Profile
         </NavLink>
         <NavLink exact activeClassName='active' to="/fuelquote">
-          Fuel Quote &nbsp;&nbsp;
+          FuelQuote
         </NavLink>
         <NavLink exact activeClassName='active' to="/quotehistory">
-          Quote History &nbsp;&nbsp;
+          QuoteHistory
         </NavLink>
       </nav>
       <Switch>
@@ -35,6 +43,7 @@ function App() {
       <Route path="/fuelquote" component={FuelQuoteForm}/>
       <Route path="/quotehistory" component={FuelQuoteHistoryForm}/>
       </Switch>
+      <h1>{initialData.title}</h1>
     </main>
   )
 }
