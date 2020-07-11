@@ -24,7 +24,7 @@ function App() {
           Login
         </NavLink>
         <NavLink exact activeClassName='active' to="/register">
-          Register &nbsp;&nbsp;
+          Register
         </NavLink>
         <NavLink exact activeClassName='active' to="/profile">
           Profile
