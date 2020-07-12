@@ -19,7 +19,7 @@ function App() {
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">BMS Fuels</Link>
+            <Link to="/">BMS Fuels Services</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
