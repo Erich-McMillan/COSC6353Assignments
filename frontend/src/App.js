@@ -5,7 +5,6 @@ import './App.css';
 import Routes from './Routes';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const history = useHistory();
 
 {/*async function handleLogout (){
   await; (Signout)
