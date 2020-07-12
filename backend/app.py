@@ -3,6 +3,10 @@ import backend.modules.authentication as authentication
 import backend.modules.profile_management as profile_management
 import backend.modules.quotes as quotes
 from backend.modules.database_helper import setup_database
+import ptvsd
+
+ptvsd.enable_attach()
+ptvsd.wait_for_attach()
 
 setup_database('https://testurl:20121')
 
@@ -26,7 +30,7 @@ def api():
         "completed" : False
     }
 
-@app.route('/authenticate/<username>.<password_hash>', methods=['POST'])
+@app.route('/authenticate/<username>.<password_hash>', methods=['GET','POST'])
 def authenticate(username: str, password_hash: str):
     """Checks whether the provided password_hash is valid for given user.
 
@@ -38,6 +42,22 @@ def authenticate(username: str, password_hash: str):
         HTTP 405 otherwise
     """
     if authentication.authenticate_user(username, password_hash):
+        return success_handler({})
+    else:
+        return error_handler(401)
+
+@app.route('/register/<username>.<password_hash>', methods=['GET','POST'])
+def register(username: str, password_hash: str):
+    """Checks whether the provided password_hash is valid for given user.
+
+    Supported methods:
+        POST
+
+    Returns:
+        HTTP success if user exists and password hash is a match
+        HTTP 405 otherwise
+    """
+    if authentication.register_user(username, password_hash):
         return success_handler({})
     else:
         return error_handler(401)
