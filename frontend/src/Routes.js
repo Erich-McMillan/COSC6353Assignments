@@ -3,7 +3,7 @@ import {Route, Switch } from "react-router-dom";
 import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import Login from './containers/Login';
-
+import Register from './containers/Register';
 
 export default function Routes()
 {
@@ -14,6 +14,9 @@ export default function Routes()
             </Route>
             <Route exact path = '/login'>
                 <Login />
+            </Route>
+            <Route exact path = '/register'>
+                <Register />
             </Route>
 
             {/*Catch unmatched routes*/}
