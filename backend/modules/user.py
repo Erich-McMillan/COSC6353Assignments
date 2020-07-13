@@ -5,11 +5,11 @@ from pymongo import MongoClient
 class i_user(i_db_obj):
    @abstractmethod
    def username(self) -> str:
-      return None
+      pass
 
    @abstractmethod
    def password_hash(self) -> bytes:
-      return None
+      pass
 
 class _user(i_user):
    _database_collection_name = 'users'
@@ -20,12 +20,12 @@ class _user(i_user):
    def username(self) -> str:
       if self._database_entry is not None:
          return self._database_entry['username']
-      return bytes()
+      return None
 
    def password_hash(self) -> bytes:
       if self._database_entry is not None:
          return self._database_entry['password_hash']
-      return bytes()
+      return None
 
    def save_to_db(self, username: str, password_hash: bytes) -> bool:
       if username is None or password_hash is None:
@@ -58,7 +58,7 @@ class _user(i_user):
          return True
       return self.load_from_db(username)
 
-   def as_json(self):
+   def as_dict(self):
       raise NotImplementedError("No need for this method in _user, should not be called.")
 
 

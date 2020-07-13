@@ -13,12 +13,6 @@ class quote(i_db_obj):
       self.delivery_date = None
       self.price_per_gallon = None
 
-   def load_from_db(self):
-      raise NotImplementedError("No need for this method, but could be implemented later.")
-
-   def remove_from_db(self):
-      raise NotImplementedError("No need for this method, but could be implemented later.")
-
    def save_to_db(self):
       database_collection = self.get_database()[quote._quote_collection_name]
       self._database_entry = database_collection.insert_one(self.as_dict())
@@ -59,9 +53,7 @@ def get_quote(user: i_user, quote_request: dict):
 def get_quote_history(user: i_user):
    quote_collection = (get_database().appdb)[quote._quote_collection_name]
    quotes = quote_collection.find({'username' : user.username()})
-   quote_array = {}
-   i = 0
+   quote_array = []
    for q in quotes:
-      quote_array[i] = quote_from_dict(q).as_dict()
-      i += 1
+      quote_array.append(quote_from_dict(q).as_dict())
    return quote_array

@@ -4,6 +4,7 @@ import random
 import string
 
 import backend.modules.profile_management as profile
+import backend.modules.user as user
 
 def test_street_address_city_len_cannot_be_greater_than_100():
    addr = profile.street_address()
@@ -60,3 +61,12 @@ def test_street_address_zipcode_len_cant_be_6():
    addr.zipcode = ''.join(random.choice(letters) for i in range(6))
 
    assert addr.zipcode == ''
+
+def test_as_dict():
+   u = user._user()
+   u._database_entry = {
+      'username':'test'
+   }
+   p = profile._profile(u)
+
+   p.as_dict

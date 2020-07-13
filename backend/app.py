@@ -4,10 +4,10 @@ import backend.modules.profile_management as profile_management
 import backend.modules.quotes as quotes
 from backend.modules.database_helper import setup_database
 from datetime import datetime
-import ptvsd
+# import ptvsd
 
-ptvsd.enable_attach()
-ptvsd.wait_for_attach()
+# ptvsd.enable_attach()
+# ptvsd.wait_for_attach()
 
 
 setup_database('https://testurl:20121')

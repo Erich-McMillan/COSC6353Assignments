@@ -1,16 +1,35 @@
 import pytest
 
 import backend.modules.authentication as auth
+import backend.modules.user as user
 
 def test_authenticate_user_returns_false_when_hashes_dont_match(monkeypatch):
-   def mock_verify_hashes(*args, **kwargs):
-      return False
+   class mock_user:
+      def password_hash(self):
+         return bytes()
 
-   monkeypatch.setattr(auth, 'verify_hashes', mock_verify_hashes)
+   def mock_get_user(*args, **kwargs):
+      return mock_user()
+
+   monkeypatch.setattr(user, 'get_user', mock_get_user)
 
    valid = auth.authenticate_user('testuser', 'dumbhash')
 
    assert valid == False
+
+def test_authenticate_user_returns_true_when_hashes_match(monkeypatch):
+
+   def mock_get_user(*args, **kwargs):
+      class mock_user:
+         def password_hash(self):
+            return bytes('test', 'utf-8')
+      return mock_user()
+
+   monkeypatch.setattr(user, 'get_user', mock_get_user)
+
+   valid = auth.authenticate_user('testuser', 'test')
+
+   assert valid == True
 
 def test_logout_user_sets_auth_user_to_none():
    auth.authenticated_user = "not none"
