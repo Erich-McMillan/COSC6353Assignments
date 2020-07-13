@@ -32,7 +32,7 @@ def api():
         "completed" : False
     }
 
-@app.route('/authenticate/<username>.<password_hash>', methods=[POST'])
+@app.route('/authenticate/<username>.<password_hash>', methods=['POST'])
 def authenticate(username: str, password_hash: str):
     """Checks whether the provided password_hash is valid for given user.
 
