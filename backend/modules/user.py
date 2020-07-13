@@ -15,7 +15,7 @@ class _user(i_user):
    _database_collection_name = 'users'
 
    def __init__(self):
-      pass
+      self._database_entry = None
 
    def username(self) -> str:
       if self._database_entry is not None:
@@ -48,7 +48,10 @@ class _user(i_user):
    def remove_from_db(self) -> bool:
       database_collection = self.get_database()[_user._database_collection_name]
       self._database_entry = database_collection.find_one_and_delete(self._database_entry)
+      if self._database_entry is None:
+         return False
       self._database_entry = None
+      return True
 
    def exists_in_db(self, username) -> bool:
       if self._database_entry is not None:
@@ -56,9 +59,7 @@ class _user(i_user):
       return self.load_from_db(username)
 
    def as_json(self):
-      return {
-         "username":self.username()
-      }
+      raise NotImplementedError("No need for this method in _user, should not be called.")
 
 
 def get_user(username) -> i_user:

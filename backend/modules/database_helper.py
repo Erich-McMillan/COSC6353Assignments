@@ -38,7 +38,7 @@ class i_db_obj:
       return True
 
    @abstractmethod
-   def as_json(self) -> dict:
+   def as_dict(self) -> dict:
       return None
 
    def get_database(self) -> MongoClient:
