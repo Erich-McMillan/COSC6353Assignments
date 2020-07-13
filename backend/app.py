@@ -3,10 +3,12 @@ import backend.modules.authentication as authentication
 import backend.modules.profile_management as profile_management
 import backend.modules.quotes as quotes
 from backend.modules.database_helper import setup_database
+from datetime import datetime
 import ptvsd
 
 ptvsd.enable_attach()
 ptvsd.wait_for_attach()
+
 
 setup_database('https://testurl:20121')
 
@@ -30,7 +32,7 @@ def api():
         "completed" : False
     }
 
-@app.route('/authenticate/<username>.<password_hash>', methods=['GET','POST'])
+@app.route('/authenticate/<username>.<password_hash>', methods=[POST'])
 def authenticate(username: str, password_hash: str):
     """Checks whether the provided password_hash is valid for given user.
 
@@ -46,7 +48,7 @@ def authenticate(username: str, password_hash: str):
     else:
         return error_handler(401)
 
-@app.route('/register/<username>.<password_hash>', methods=['GET','POST'])
+@app.route('/register/<username>.<password_hash>', methods=['POST'])
 def register(username: str, password_hash: str):
     """Checks whether the provided password_hash is valid for given user.
 
@@ -99,9 +101,8 @@ def quote():
     """
     if not authentication.is_authenticated():
         return error_handler(401)
-    if request.method == 'POST':
-        user = authentication.get_authenticated_user()
-        return quotes.get_quote(user, request.form)
+    user = authentication.get_authenticated_user()
+    return quotes.get_quote(user, request.form)
 
 @app.route('/quote_history', methods=['GET'])
 def quote_history():
