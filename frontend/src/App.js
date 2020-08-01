@@ -34,6 +34,9 @@ function App() {
             <LinkContainer to = '/getQuote'>
               <NavItem>Get Quote</NavItem>
             </LinkContainer>
+            <LinkContainer to = '/getHistory'>
+              <NavItem>Order History</NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
