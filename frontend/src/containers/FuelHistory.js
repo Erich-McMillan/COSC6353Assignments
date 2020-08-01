@@ -32,7 +32,7 @@ class FuelHistory extends React.Component{
     render(){
         return (
             <div className = 'FuelHistory'>
-                <Table bordered hover>
+                <Table bordered align='center'>
                     <thead>
                         <tr>
                             <th>Delivery Address</th>
