@@ -8,7 +8,7 @@ export default function Login(){
     const [password, setPassword] = useState("");
 
     function validateForm(){
-        return username.lenght > 0 && password.lenght > 0;
+        return username.length > 0 && password.length > 0;
     }
 
     function handleSubmit(event){   /*Handle login and Registration, add login and logout sessions as per DB and Backend*/
