@@ -5,6 +5,7 @@ import NotFound from "./containers/NotFound";
 import Login from './containers/Login';
 import Register from './containers/Register';
 import FuelQuoteForm from "./containers/FuelQuoteForm";
+import FuelHistory from './containers/FuelHistory';
 
 export default function Routes()
 {
@@ -21,6 +22,9 @@ export default function Routes()
             </Route>
             <Route exact path = '/getQuote'>
                 <FuelQuoteForm />
+            </Route>
+            <Route exact path = '/getHistory'>
+                <FuelHistory />
             </Route>
 
             {/*Catch unmatched routes*/}
