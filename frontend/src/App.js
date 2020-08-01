@@ -19,7 +19,7 @@ function App() {
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">BMS Fuels Services</Link>
+            <Link to="/">Home</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -30,6 +30,9 @@ function App() {
             </LinkContainer>
             <LinkContainer to = '/login'>
               <NavItem>Login</NavItem>
+            </LinkContainer>
+            <LinkContainer to = '/getQuote'>
+              <NavItem>Get Quote</NavItem>
             </LinkContainer>
           </Nav>
         </Navbar.Collapse>
