@@ -26,7 +26,7 @@ export default function Register() {
         event.preventDefault();
         const res = await agent.Api.register(username, password);
         if (res && res.ok) {
-          alert('registration successful')
+          alert('Registration successful! Please login to complete your profile.')
           // perform redirect to login page?
         } else {
           alert('username already taken')
