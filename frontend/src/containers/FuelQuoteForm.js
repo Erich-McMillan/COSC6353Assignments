@@ -73,23 +73,6 @@ class FuelQuoteForm extends React.Component {
                 alert('res not ok?')
             }
         });
-        // var res = agent.Api.get_quote(obj)
-        // if (res && res.ok) {
-        //     alert(res.body['delivery_date'])
-        //     this.setState({
-        //         address: "10330 Bissonnet St.",
-        //         city: "Houston",
-        //         state: "TX",
-        //         zipcode: "77099",
-        //         gallons: "2000",
-        //         date: "",
-        //         price: "1.5000",
-        //         deliveryQuote: "0.00"
-        //     });
-        // } else {
-        //     alert(res)
-        //     alert('res not ok?')
-        // }
     }
 
     render() {

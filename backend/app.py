@@ -84,7 +84,7 @@ def profile():
     if not authentication.is_authenticated():
         return error_handler(401)
     if request.method == 'POST':
-        return success_handler(profile_management.update_profile(authentication.get_authenticated_user(), request.form))
+        return success_handler(profile_management.update_profile(authentication.get_authenticated_user(), request.get_json()))
     if request.method == 'GET':
         return success_handler(profile_management.get_profile(authentication.get_authenticated_user()))
 

@@ -6,6 +6,7 @@ import Login from './containers/Login';
 import Register from './containers/Register';
 import FuelQuoteForm from "./containers/FuelQuoteForm";
 import FuelHistory from './containers/FuelHistory';
+import Profile from './containers/Profile'
 
 export default function Routes()
 {
@@ -19,6 +20,9 @@ export default function Routes()
             </Route>
             <Route exact path = '/register'>
                 <Register />
+            </Route>
+            <Route exact path = '/profile'>
+                <Profile />
             </Route>
             <Route exact path = '/getQuote'>
                 <FuelQuoteForm />

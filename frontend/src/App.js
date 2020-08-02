@@ -31,6 +31,9 @@ function App() {
             <LinkContainer to = '/login'>
               <NavItem>Login</NavItem>
             </LinkContainer>
+            <LinkContainer to = '/profile'>
+              <NavItem>Profile</NavItem>
+            </LinkContainer>
             <LinkContainer to = '/getQuote'>
               <NavItem>Get Quote</NavItem>
             </LinkContainer>

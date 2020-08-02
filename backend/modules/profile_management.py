@@ -80,8 +80,8 @@ class _profile(i_profile):
       if self._database_entry is None:
          return False
       self.fullname = self._database_entry['fullname']
-      self.address_1 = street_address_from_dict(self._database_entry['address 1'])
-      self.address_2 = street_address_from_dict(self._database_entry['address 2'])
+      self.address_1 = street_address_from_dict(self._database_entry['address1'])
+      self.address_2 = street_address_from_dict(self._database_entry['address2'])
       return True
 
    def save_to_db(self) -> bool:
@@ -105,15 +105,15 @@ class _profile(i_profile):
       return {
          'username':self._user.username(),
          'fullname': self.fullname,
-         'address 1': self.address_1.as_dict(),
-         'address 2': self.address_2.as_dict(),
+         'address1': self.address_1.as_dict(),
+         'address2': self.address_2.as_dict(),
       }
 
 def update_profile(user: i_user, new_profile_data: dict) -> i_profile:
    user_profile = _profile(user)
    user_profile.fullname = new_profile_data['fullname']
-   user_profile.address_1 = street_address_from_dict(new_profile_data['address 1'])
-   user_profile.address_2 = street_address_from_dict(new_profile_data['address 2'])
+   user_profile.address_1 = street_address_from_dict(new_profile_data['address1'])
+   user_profile.address_2 = street_address_from_dict(new_profile_data['address2'])
    user_profile.save_to_db()
    return user_profile.as_dict()
 
