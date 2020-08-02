@@ -25,7 +25,7 @@ export default function Register() {
     async function handleSubmit (event){
         event.preventDefault();
         const res = await agent.Api.register(username, password);
-        if (res.ok) {
+        if (res && res.ok) {
           alert('registration successful')
           // perform redirect
         } else {
