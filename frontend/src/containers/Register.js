@@ -70,7 +70,7 @@ export default function Register() {
     
       return (
         <div className="Register">
-          if (newUser == NULL) { renderForm() } 
+          { renderForm() } 
         </div>
       );
 }
