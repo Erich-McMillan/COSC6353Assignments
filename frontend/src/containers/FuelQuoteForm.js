@@ -23,14 +23,15 @@ class FuelQuoteForm extends React.Component {
         agent.Api.get_profile().then(res => {
             if (res && res.ok) {
                 // alert(res.body['address 1']['city'])
+               var obj = JSON.parse(res.text)
                 this.setState({
-                    address: "10330 Bissonnet St.",
-                    city: "Houston",
-                    state: "TX",
-                    zipcode: "77099",
-                    gallons: "2000",
+                    address: obj['address1']['address'],
+                    city: obj['address1']['city'],
+                    state: obj['address1']['state'],
+                    zipcode: obj['address1']['zipcode'],
+                    gallons: "",
                     date: "",
-                    price: "1.5000",
+                    price: "",
                     deliveryQuote: "0.00"
                 });
             }
