@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import './Login.css';
 import { useHistory } from 'react-router-dom';
+import agent from '../agent';
 
 export default function Login(){
     const [username, setUsername] = useState("");
@@ -11,16 +12,15 @@ export default function Login(){
         return username.length > 0 && password.length > 0;
     }
 
-    function handleSubmit(event){   /*Handle login and Registration, add login and logout sessions as per DB and Backend*/
+    async function handleSubmit(event){   /*Handle login and Registration, add login and logout sessions as per DB and Backend*/
         event.preventDefault();
-        /*
-        try{
-            await validateForm() ; {handle login}
-            history.push('/');  
-        } catch (e) {
-            alert('Login failed');
+        const res = await agent.Api.login(username, password);
+        if (res && res.ok) {
+          alert('login successful')
+          // perform redirect to profile page?
+        } else {
+          alert('username or password incorrect')
         }
-        */
     }
 
     /*const history = useHistory();*/

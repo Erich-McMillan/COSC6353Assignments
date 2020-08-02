@@ -8,6 +8,8 @@ const API_ROOT = 'http://localhost:5000';
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
 
+const Username = null;
+
 const requests = {
    del: url =>
      superagent.del(`${API_ROOT}${url}`).catch(err => {}),
@@ -21,17 +23,18 @@ const requests = {
  
  const Api = {
    login: (username, password) =>
-     requests.post('/authenticate/'+username+'.'+password),
+     requests.post('/authenticate/'+username+'.'+password).then(res => res),
    register: (username, password) =>
-      requests.post('/register/'+username+'.'+password),
+      requests.post('/register/'+username+'.'+password).then(res => res),
    save_profile: profile =>
-     requests.post('/profile', profile),
-   get_profile: (quote_info) =>
-     requests.get('/quote', quote_info),
-   get_quote: () =>
-     requests.get('/quote_history', { })
+     requests.post('/profile', profile).then(res => res),
+   get_quote: (quote_info) =>
+     requests.get('/quote', quote_info).then(res => res),
+   get_quotes: () =>
+     requests.get('/quote_history', { }).then(res => res)
    };
 
 export default {
-   Api
+   Api,
+   Username
    };
