@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import backend.modules.authentication as authentication
 import backend.modules.profile_management as profile_management
 import backend.modules.quotes as quotes
@@ -13,6 +14,7 @@ from datetime import datetime
 setup_database('https://testurl:20121')
 
 app = Flask(__name__)
+CORS(app)
 
 def success_handler(data):
     response = jsonify(data)

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { HelpBlock, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Register.css";
+import agent from '../agent';
 
 export default function Register() {
     const [username, setUsername] = useState("");
@@ -11,15 +12,25 @@ export default function Register() {
     /*const history = useHistory();*/
 
     function validateForm() {
+        // return (
+        //   username.length > 0 && password.length > 0 &&
+        //   password === confirmPassword
+        // );
+        // TODO: for some reason password equality check fails. Maybe comparision by reference not equality?
         return (
-          username.lenght > 0 && password.lenght > 0 &&
-          password === confirmPassword
+          username.length > 0 && password.length > 0
         );
     }
 
-    function handleSubmit (event){
+    async function handleSubmit (event){
         event.preventDefault();
-        {/*Set up registration through try and catch blocks. Then push to homepage */}
+        const res = await agent.Api.register(username, password);
+        if (res.ok) {
+          alert('registration successful')
+          // perform redirect
+        } else {
+          alert('username already taken')
+        }
     }
 
     function renderForm() {
