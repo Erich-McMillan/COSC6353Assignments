@@ -3,6 +3,12 @@ import { HelpBlock, Button, FormGroup, FormControl, ControlLabel } from 'react-b
 import { useFormFields } from "../libs/hooksLib";
 import agent from '../agent';
 
+function TrimNum (num){
+    var number = parseFloat(num);
+    var n = number.toFixed(2);
+    return n.toString();
+}
+
 class FuelQuoteForm extends React.Component {
     constructor(props) {
         super(props);
@@ -39,7 +45,7 @@ class FuelQuoteForm extends React.Component {
     }
 
     validateForm() {
-        return this.state.address.length > 0 && this.state.city.length > 0 && this.state.zipcode.length > 0 && this.state.zipcode.length < 9 && this.state.gallons != 0;
+        return this.state.address.length > 0 && this.state.city.length > 0 && this.state.zipcode.length > 0 && this.state.zipcode.length < 9 && this.state.gallons !== 0;
     }
 
     handleSubmit (event) {
@@ -57,8 +63,8 @@ class FuelQuoteForm extends React.Component {
         }
         agent.Api.get_quote(obj).then(res => {
             if (res && res.ok) {
-                alert(res.text)
                 var obj = JSON.parse(res.text)
+                alert("Total Cost: " + TrimNum(obj['total_cost']))
                 this.setState({
                     address: obj['delivery_addr']['address'],
                     city: obj['delivery_addr']['city'],
@@ -67,7 +73,7 @@ class FuelQuoteForm extends React.Component {
                     gallons: obj['gallons_requested'],
                     date: obj['delivery_date'],
                     price: obj['price_per_gallon'],
-                    deliveryQuote: obj['total_cost']
+                    deliveryQuote: TrimNum(obj['total_cost'])
                 });
             } else {
                 alert(res)

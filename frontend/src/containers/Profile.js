@@ -42,7 +42,7 @@ class FuelQuoteForm extends React.Component {
     }
 
     validateForm() {
-        return this.state.address1.length > 0 && this.state.city1.length > 0 && this.state.zipcode1.length > 0 && this.state.zipcode1.length < 9 && this.state.address2.length > 0 && this.state.city2.length > 0 && this.state.zipcode2.length > 0 && this.state.zipcode2.length < 9 && this.state.state1.length == 2 && this.state.state2.length == 2;
+        return this.state.address1.length > 0 && this.state.city1.length > 0 && this.state.zipcode1.length > 0 && this.state.zipcode1.length < 9 && this.state.address2.length > 0 && this.state.city2.length > 0 && this.state.zipcode2.length > 0 && this.state.zipcode2.length < 9 && this.state.state1.length === 2 && this.state.state2.length === 2;
     }
 
     handleSubmit (event) {

@@ -3,6 +3,12 @@ import {Table} from 'react-bootstrap';
 import agent from '../agent';
 import './FuelHistory.css';
 
+function TrimNum (num){
+    var number = parseFloat(num);
+    var n = number.toFixed(2);
+    return n.toString();
+}
+
 class FuelHistory extends React.Component{
     constructor(props) {
         super(props);
@@ -23,7 +29,7 @@ class FuelHistory extends React.Component{
                             'gallons_requested': e['gallons_requested'],
                             'delivery_date': e['delivery_date'],
                             'delivery_addr': e['delivery_addr']['address'] + ', ' + e['delivery_addr']['city'] + ', ' + e['delivery_addr']['state'] + ', ' + e['delivery_addr']['zipcode'],
-                            'total_cost': e['total_cost']
+                            'total_cost': TrimNum(e['total_cost'])
                         }
                         quoteArray.push(quote)
                     }
