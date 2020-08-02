@@ -104,7 +104,7 @@ def quote():
     if not authentication.is_authenticated():
         return error_handler(401)
     user = authentication.get_authenticated_user()
-    return quotes.get_quote(user, request.form)
+    return success_handler(quotes.get_quote(user, request.get_json()))
 
 @app.route('/quote_history', methods=['GET'])
 def quote_history():

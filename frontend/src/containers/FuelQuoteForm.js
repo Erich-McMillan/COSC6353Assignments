@@ -1,106 +1,172 @@
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { HelpBlock, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { useFormFields } from "../libs/hooksLib";
+import agent from '../agent';
 
-export default function FuelQuoteForm (){
-    const [fields, handleFieldChange] = useFormFields ({
-        address: "10330 Bissonnet St.",
-        city: "Houston",
-        state: "TX",
-        zipcode: "77099",
-        gallons: "2000",
-        date: "",
-        price: "1.5000",
-        deliveryQuote: "0.00"
-    });
-
-    function validateForm() {
-        return fields.address.length > 0 && fields.city.length > 0 && fields.zipcode.length > 0 && fields.zipcode < 9 && fields.gallons != 0 && fields.price != 0;
+class FuelQuoteForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            address: "",
+            city: "",
+            state: "",
+            zipcode: "",
+            gallons: "",
+            date: "",
+            price: "",
+            deliveryQuote: ""
+        };
+        this.handleSubmit=this.handleSubmit.bind(this)
     }
 
-    function handleSubmit (event) {
+    componentWillMount() {
+        agent.Api.get_profile().then(res => {
+            if (res && res.ok) {
+                // alert(res.body['address 1']['city'])
+                this.setState({
+                    address: "10330 Bissonnet St.",
+                    city: "Houston",
+                    state: "TX",
+                    zipcode: "77099",
+                    gallons: "2000",
+                    date: "",
+                    price: "1.5000",
+                    deliveryQuote: "0.00"
+                });
+            }
+        });
+    }
+
+    validateForm() {
+        return this.state.address.length > 0 && this.state.city.length > 0 && this.state.zipcode.length > 0 && this.state.zipcode.length < 9 && this.state.gallons != 0;
+    }
+
+    handleSubmit (event) {
         event.preventDefault();
         /*Link with Quote History and DB */
-    }
-
-    function getDeliveryQuote(){
-        if (fields.gallons <= 0 && !validateForm()){
-            return;
+        var obj = {
+            delivery_addr : {
+                address: this.state.address,
+                city : this.state.city,
+                state : this.state.state,
+                zipcode : this.state.zipcode,
+            },
+            gallons_requested : this.state.gallons,
+            delivery_date : this.state.date,
         }
-        fields.deliveryQuote = (fields.price)*(fields.gallons); 
+        agent.Api.get_quote(obj).then(res => {
+            if (res && res.ok) {
+                alert(res.text)
+                var obj = JSON.parse(res.text)
+                this.setState({
+                    address: obj['delivery_addr']['address'],
+                    city: obj['delivery_addr']['city'],
+                    state: obj['delivery_addr']['state'],
+                    zipcode: obj['delivery_addr']['zipcode'],
+                    gallons: obj['gallons_requested'],
+                    date: obj['delivery_date'],
+                    price: obj['price_per_gallon'],
+                    deliveryQuote: obj['total_cost']
+                });
+            } else {
+                alert(res)
+                alert('res not ok?')
+            }
+        });
+        // var res = agent.Api.get_quote(obj)
+        // if (res && res.ok) {
+        //     alert(res.body['delivery_date'])
+        //     this.setState({
+        //         address: "10330 Bissonnet St.",
+        //         city: "Houston",
+        //         state: "TX",
+        //         zipcode: "77099",
+        //         gallons: "2000",
+        //         date: "",
+        //         price: "1.5000",
+        //         deliveryQuote: "0.00"
+        //     });
+        // } else {
+        //     alert(res)
+        //     alert('res not ok?')
+        // }
     }
 
-    return (
-        <div className = 'FuelQuouteForm'>
-            <form onSubmit = {handleSubmit}>
-                <FormGroup controlID='address' bsSize='large'>
-                    <ControlLabel>Delivery Address</ControlLabel>
-                    <FormControl
-                    autofocus
-                    type = 'address'
-                    value = {fields.address}
-                    onChange = {handleFieldChange}
-                    ></FormControl>
-                </FormGroup>
-                <FormGroup controlID='city' bsSize='large'>
-                    <ControlLabel>City</ControlLabel>
-                    <FormControl
-                    type = 'city'
-                    value = {fields.city}
-                    onChange = {handleFieldChange}
-                    ></FormControl>
-                </FormGroup>
-                <FormGroup controlID='state' bsSize='large'>
-                    <ControlLabel>State</ControlLabel>
-                    <FormControl
-                    type = 'state'
-                    value = {fields.state}
-                    onChange = {handleFieldChange}
-                    ></FormControl>
-                </FormGroup>
-                <FormGroup controlID='zipcode' bsSize='large'>
-                    <ControlLabel>Zipcode</ControlLabel>
-                    <FormControl
-                    type = 'zipcode'
-                    value = {fields.zipcode}
-                    onChange = {handleFieldChange}
-                    ></FormControl>
-                </FormGroup>
-                <FormGroup controlID='gallons' bsSize='large'>
-                    <ControlLabel>Order Gallons</ControlLabel>
-                    <FormControl
-                    type = 'gallons'
-                    value = {fields.gallons= getDeliveryQuote()}
-                    onChange = {handleFieldChange}
-                    ></FormControl>
-                </FormGroup>
-                <FormGroup controlID='date' bsSize='large'>
-                    <ControlLabel>Delivery Date</ControlLabel>
-                    <FormControl
-                    type = 'date'
-                    value = {fields.date}
-                    onChange = {handleFieldChange}
-                    ></FormControl>
-                </FormGroup>
-                <FormGroup controlID='price' bsSize='large'>
-                    <ControlLabel>Suggested Price</ControlLabel>
-                    <FormControl
-                    type = 'price'
-                    value = {fields.price}
-                    onChange = {handleFieldChange}
-                    ></FormControl>
-                </FormGroup>
-                <FormGroup controlID='deliveryQuote' bsSize='large' read-only>
-                    <ControlLabel>Total Amount due</ControlLabel>
-                    <FormControl
-                    type = 'deliveryQuote'
-                    value = {fields.deliveryQuote}
-                    onChange = {handleFieldChange}
-                    ></FormControl>
-                </FormGroup>
-
-            </form>
-        </div>
-    );
+    render() {
+        return (
+            <div className = 'FuelQuouteForm'>
+                <form onSubmit = {this.handleSubmit}>
+                    <FormGroup controlID='address' bsSize='large'>
+                        <ControlLabel>Delivery Address</ControlLabel>
+                        <FormControl
+                        autofocus
+                        type = 'address'
+                        value = {this.state.address}
+                        onChange = {val => this.setState({address: val})}
+                        ></FormControl>
+                    </FormGroup>
+                    <FormGroup controlID='city' bsSize='large'>
+                        <ControlLabel>City</ControlLabel>
+                        <FormControl
+                        type = 'city'
+                        value = {this.state.city}
+                        onChange = {e => this.setState({city: e.target.value})}
+                        ></FormControl>
+                    </FormGroup>
+                    <FormGroup controlID='state' bsSize='large'>
+                        <ControlLabel>State</ControlLabel>
+                        <FormControl
+                        type = 'state'
+                        value = {this.state.state}
+                        onChange = {e => this.setState({state: e.target.value})}
+                        ></FormControl>
+                    </FormGroup>
+                    <FormGroup controlID='zipcode' bsSize='large'>
+                        <ControlLabel>Zipcode</ControlLabel>
+                        <FormControl
+                        type = 'zipcode'
+                        value = {this.state.zipcode}
+                        onChange = {e => this.setState({zipcode: e.target.value})}
+                        ></FormControl>
+                    </FormGroup>
+                    <FormGroup controlID='gallons' bsSize='large'>
+                        <ControlLabel>Order Gallons</ControlLabel>
+                        <FormControl
+                        type = 'gallons'
+                        value = {this.state.gallons}
+                        onChange = {e => this.setState({gallons: e.target.value})}
+                        ></FormControl>
+                    </FormGroup>
+                    <FormGroup controlID='date' bsSize='large'>
+                        <ControlLabel>Delivery Date</ControlLabel>
+                        <FormControl
+                        type = 'date'
+                        value = {this.state.date}
+                        onChange = {e => this.setState({date: e.target.value})}
+                        ></FormControl>
+                    </FormGroup>
+                    <FormGroup controlID='price' bsSize='large'>
+                        <ControlLabel>Suggested Price</ControlLabel>
+                        <FormControl
+                        type = 'price'
+                        value = {this.state.price}
+                        ></FormControl>
+                    </FormGroup>
+                    <FormGroup controlID='deliveryQuote' bsSize='large' read-only>
+                        <ControlLabel>Total Amount due</ControlLabel>
+                        <FormControl
+                        type = 'deliveryQuote'
+                        value = {this.state.deliveryQuote}
+                        ></FormControl>
+                    </FormGroup>
+                    <Button block bsSize="large" disabled={!this.validateForm()} type="submit">
+                        Get Quote
+                    </Button>
+                </form>
+            </div>
+        );
+    }
 
 }
+
+export default FuelQuoteForm

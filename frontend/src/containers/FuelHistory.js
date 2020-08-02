@@ -1,35 +1,38 @@
 import React from 'react';
 import {Table} from 'react-bootstrap';
+import agent from '../agent';
 
 class FuelHistory extends React.Component{
-    
-    getUserOrderHistory() {
-        return [
-           {
-              'delivery address': '301 Fannin St., Houston, TX 77002',
-              'date': '08/05/2020',
-              'gallons': 10,
-              'price per gallon':'2',
-              'total cost':'20'
-           },
-           {
-              'delivery address': '301 Fannin St., Houston, TX 77002',
-              'date': '05/07/2019',
-              'gallons': 24,
-              'price per gallon':'1',
-              'total cost':'24'
-           },
-           {
-              'delivery address': '301 Fannin St., Houston, TX 77002',
-              'date': '10/06/2018',
-              'gallons': 7,
-              'price per gallon':'10',
-              'total cost':'70'
-           }
-        ]
+    constructor(props) {
+        super(props);
+        this.state = {
+            quotes: []
+        };
+    }
+
+    componentDidMount() {
+        agent.Api.get_quotes().then(res => {
+            if (res && res.ok) {
+                var rawQuotes = JSON.parse(res.text)
+                var quoteArray = []
+                rawQuotes.forEach(
+                    e => {
+                        var quote = {
+                            'price_per_gallon': e['price_per_gallon'],
+                            'gallons_requested': e['gallons_requested'],
+                            'delivery_date': e['delivery_date'],
+                            'delivery_addr': e['delivery_addr']['address'] + ', ' + e['delivery_addr']['city'] + ', ' + e['delivery_addr']['state'] + ', ' + e['delivery_addr']['zipcode'],
+                            'total_cost': e['total_cost']
+                        }
+                        quoteArray.push(quote)
+                    }
+                )
+                this.setState({quotes: quoteArray});
+            }
+        });
     }
  
-    render(){
+    render() {
         return (
             <div className = 'FuelHistory'>
                 <Table bordered align='center'>
@@ -43,14 +46,14 @@ class FuelHistory extends React.Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {this.getUserOrderHistory().map((order) => 
+                        {this.state.quotes.map((order) => 
                         (
                             <tr>
-                                <td>{order['delivery address']}</td>
-                                <td>{order['date']}</td>
-                                <td>{order['gallons']}</td>
-                                <td>{order['price per gallon']}</td>
-                                <td>{order['total cost']}</td>
+                                <td>{order['delivery_addr']}</td>
+                                <td>{order['delivery_date']}</td>
+                                <td>{order['gallons_requested']}</td>
+                                <td>{order['price_per_gallon']}</td>
+                                <td>{order['total_cost']}</td>
                             </tr>
                         ))}
                     </tbody>

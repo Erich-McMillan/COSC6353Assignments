@@ -28,8 +28,14 @@ const requests = {
       requests.post('/register/'+username+'.'+password).then(res => res),
    save_profile: profile =>
      requests.post('/profile', profile).then(res => res),
-   get_quote: (quote_info) =>
-     requests.get('/quote', quote_info).then(res => res),
+   get_profile: profile =>
+     requests.get('/profile').then(res => res),
+   get_quote: async (quote_info) => {
+       return await superagent
+        .post('/quote')
+        .send(quote_info)
+        .set('accept','json')
+    },
    get_quotes: () =>
      requests.get('/quote_history', { }).then(res => res)
    };
