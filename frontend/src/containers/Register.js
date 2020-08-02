@@ -9,7 +9,7 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     
-    /*const history = useHistory();*/
+    const history = useHistory();
 
     function validateForm() {
         // return (
@@ -27,7 +27,8 @@ export default function Register() {
         const res = await agent.Api.register(username, password);
         if (res && res.ok) {
           alert('Registration successful! Please login to complete your profile.')
-          // perform redirect to login page?
+          // perform redirect to login page
+          history.push('/login');
         } else {
           alert('username already taken')
         }
