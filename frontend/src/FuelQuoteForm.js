@@ -45,7 +45,7 @@ class FuelQuoteForm extends React.Component {
     }
 
     validateForm() {
-        return this.state.address.length > 0 && this.state.city.length > 0 && this.state.zipcode.length > 0 && this.state.zipcode.length < 9 && this.state.gallons != 0;
+        return this.state.address.length > 0 && this.state.city.length > 0 && this.state.zipcode.length > 0 && this.state.zipcode.length < 9 && this.state.gallons !== 0;
     }
 
     handleSubmit (event) {
