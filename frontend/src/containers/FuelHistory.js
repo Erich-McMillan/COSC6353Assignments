@@ -1,5 +1,6 @@
 import React from 'react';
 import {Table} from 'react-bootstrap';
+import './FuelHistory.css';
 
 class FuelHistory extends React.Component{
     
