@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Link, Router } from "react-router-dom";
 import './Login.css';
 import { useHistory } from 'react-router-dom';
 import agent from '../agent';
+//import userHasLoggedIn from './AuthenticateLogin';
 
 export default function Login(){
     const [username, setUsername] = useState("");
@@ -13,19 +15,23 @@ export default function Login(){
     }
     const history = useHistory();
 
-    async function handleSubmit(event){   /*Handle login and Registration, add login and logout sessions as per DB and Backend*/
+    async function handleSubmit(event){
         event.preventDefault();
         const res = await agent.Api.login(username, password);
         if (res && res.ok) {
           alert('Login successful! Please update your profile before ordering!')
-          // perform redirect to profile page
-          history.push('/profile');
+          history.push('/');
         } else {
           alert('username or password incorrect')
+          history.push('/register')
         }
     }
 
-    /**/
+    // function handleClick(event){
+    //      event.preventDefault();
+    //      history.push('/register');
+    // }
+
 
     return(
         <div className = 'Login'>
@@ -52,6 +58,17 @@ export default function Login(){
                 <Button block bsSize = 'large' disabled = {!validateForm()} type = 'submit'>
                         Login
                 </Button>
+                
+                {/* <p class="text-center"><br></br>Not a member?<Link to='/register'> Register</Link></p> */}
+
+                {/* <Button block bsSize = 'large' type = 'submit'>
+                    Click to register
+                </Button> */}
+                <p class="text-center"><br></br>Not a member?</p>
+                <Button type="submit" block bsSize = 'large' onClick={() => history.push('/register')}>
+                Click to register
+                </Button>
+                
             </form>
         </div>
     );

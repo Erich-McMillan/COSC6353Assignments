@@ -1,17 +1,17 @@
 import React from "react";
-import "./Home.css";
+import './Homepage.css'
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
-import Routes from './src/Routes'
+import Routes from './Routes'
 
-export default function Home() {
+export default function Homepage() {
   return (
-    <div className="Home">
+    <div className="Homepage">
       {/* <div className="lander">
         <p>Login to access profile. If you are not a member, please register.</p>
       </div> */}
-        <Navbar>
+        <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/getProfile">Manage Profile</Link>

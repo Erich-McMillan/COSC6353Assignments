@@ -1,12 +1,12 @@
 import React from "react";
 import {Route, Switch } from "react-router-dom";
-import Home from "./containers/Home";
+import Homepage from "./Homepage";      //Home
 import NotFound from "./containers/NotFound";
 import Login from './containers/Login';
 import Register from './containers/Register';
 import FuelQuoteForm from "./containers/FuelQuoteForm";
 import FuelHistory from './containers/FuelHistory';
-import Profile from './containers/Profile'
+import Profile from './containers/Profile';
 import Logout from './containers/Logout'
 
 export default function Routes()
@@ -14,9 +14,9 @@ export default function Routes()
     return (
         <Switch>
             <Route exact path = '/'>
-                <Home />
+                <Homepage />
             </Route>
-            <Route exact path = '/login'>
+            <Route exact path = '/login'>            {/*login*/}
                 <Login />
             </Route>
             <Route exact path = '/register'>
@@ -28,12 +28,13 @@ export default function Routes()
             <Route exact path = '/getQuote'>
                 <FuelQuoteForm />
             </Route>
-            <Route exact path = '/getHistory'>
+            <Route exact path = '/history'>
                 <FuelHistory />
-            </Route>
+            </Route> 
             <Route exact path = '/logout'>
                 <Logout />
             </Route>
+
             {/*Catch unmatched routes*/}
             <Route>
                 <NotFound />

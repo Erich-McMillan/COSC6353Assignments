@@ -1,21 +1,32 @@
 import React from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, BrowserRouter } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import './App.css';
-import Routes from './Routes';
+import Route from './Routes';
 import { LinkContainer } from 'react-router-bootstrap';
-
-
-{/*async function handleLogout (){
-  await; (Signout)
-  
-  history.push('/login');
-}
-*/}
+import Login from './containers/Login';
+import Register from './containers/Register';
+import Homepage from './Homepage';
 
 function App() {
   return (
-    <div className="App">
+    //<div className="App">
+    <BrowserRouter>
+
+    <div>
+    <Route path={"/login"} component={Login} />
+        
+    </div>
+    </BrowserRouter>
+        
+  //</div>
+  );
+}
+
+export default App;
+
+
+{/* <div className="App">
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
@@ -47,8 +58,4 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
       <Routes />
-    </div>
-  );
-}
-
-export default App;
+    </div> */}

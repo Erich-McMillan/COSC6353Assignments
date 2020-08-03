@@ -84,7 +84,7 @@ class FuelQuoteForm extends React.Component {
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='fullname' bsSize='large'>
-                        <ControlLabel>fullname</ControlLabel>
+                        <ControlLabel>Full Name</ControlLabel>
                         <FormControl
                         autofocus
                         value = {this.state.fullname}
@@ -92,56 +92,56 @@ class FuelQuoteForm extends React.Component {
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='addr1' bsSize='large'>
-                        <ControlLabel>Address1</ControlLabel>
+                        <ControlLabel>Primary Address</ControlLabel>
                         <FormControl
                         value = {this.state.address1}
                         onChange = {e => this.setState({address1: e.target.value})}
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='city1' bsSize='large'>
-                        <ControlLabel>city1</ControlLabel>
+                        <ControlLabel>City</ControlLabel>
                         <FormControl
                         value = {this.state.city1}
                         onChange = {e => this.setState({city1: e.target.value})}
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='state1' bsSize='large'>
-                        <ControlLabel>state1</ControlLabel>
+                        <ControlLabel>State</ControlLabel>
                         <FormControl
                         value = {this.state.state1}
                         onChange = {e => this.setState({state1: e.target.value})}
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='zipcode1' bsSize='large'>
-                        <ControlLabel>zipcode1</ControlLabel>
+                        <ControlLabel>Zipcode</ControlLabel>
                         <FormControl
                         value = {this.state.zipcode1}
                         onChange = {e => this.setState({zipcode1: e.target.value})}
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='addr2' bsSize='large'>
-                        <ControlLabel>Address2</ControlLabel>
+                        <ControlLabel>Secondary Address</ControlLabel>
                         <FormControl
                         value = {this.state.address2}
                         onChange = {e => this.setState({address2: e.target.value})}
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='city2' bsSize='large'>
-                        <ControlLabel>city2</ControlLabel>
+                        <ControlLabel>City</ControlLabel>
                         <FormControl
                         value = {this.state.city2}
                         onChange = {e => this.setState({city2: e.target.value})}
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='state1' bsSize='large'>
-                        <ControlLabel>state2</ControlLabel>
+                        <ControlLabel>State</ControlLabel>
                         <FormControl
                         value = {this.state.state2}
                         onChange = {e => this.setState({state2: e.target.value})}
                         ></FormControl>
                     </FormGroup>
                     <FormGroup controlID='zipcode2' bsSize='large'>
-                        <ControlLabel>zipcode2</ControlLabel>
+                        <ControlLabel>Zipcode</ControlLabel>
                         <FormControl
                         value = {this.state.zipcode2}
                         onChange = {e => this.setState({zipcode2: e.target.value})}
