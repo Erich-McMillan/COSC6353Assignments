@@ -1,14 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import backend.modules.authentication as authentication
 import backend.modules.profile_management as profile_management
 import backend.modules.quotes as quotes
 from backend.modules.database_helper import setup_database
 from datetime import datetime
-# import ptvsd
+import os
+import ptvsd
 
-# ptvsd.enable_attach()
-# ptvsd.wait_for_attach()
+ptvsd.enable_attach()
+ptvsd.wait_for_attach()
 
 
 setup_database('https://testurl:20121')
@@ -33,6 +34,11 @@ def api():
         "title" : "Flask backend is working",
         "completed" : False
     }
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 @app.route('/authenticate/<username>.<password_hash>', methods=['POST'])
 def authenticate(username: str, password_hash: str):
