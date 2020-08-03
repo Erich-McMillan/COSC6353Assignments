@@ -28,6 +28,7 @@ def register_user(username, password_hash) -> bool:
 def logout_user():
    global authenticated_user
    authenticated_user = None
+   return True
 
 def is_authenticated() -> bool:
    if authenticated_user is not None:

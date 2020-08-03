@@ -50,6 +50,22 @@ def authenticate(username: str, password_hash: str):
     else:
         return error_handler(401)
 
+@app.route('/logout', methods=['POST'])
+def authenticate():
+    """Logs our user
+
+    Supported methods:
+        POST
+
+    Returns:
+        HTTP success if user exists and password hash is a match
+        HTTP 405 otherwise
+    """
+    if authentication.logout_user():
+        return success_handler({})
+    else:
+        return error_handler(405)
+
 @app.route('/register/<username>.<password_hash>', methods=['POST'])
 def register(username: str, password_hash: str):
     """Checks whether the provided password_hash is valid for given user.

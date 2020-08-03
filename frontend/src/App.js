@@ -40,6 +40,9 @@ function App() {
             <LinkContainer to = '/getHistory'>
               <NavItem>Order History</NavItem>
             </LinkContainer>
+            <LinkContainer to = '/logout'>
+              <NavItem>Logout</NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

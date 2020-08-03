@@ -7,6 +7,7 @@ import Register from './containers/Register';
 import FuelQuoteForm from "./containers/FuelQuoteForm";
 import FuelHistory from './containers/FuelHistory';
 import Profile from './containers/Profile'
+import Logout from './containers/Logout'
 
 export default function Routes()
 {
@@ -30,7 +31,9 @@ export default function Routes()
             <Route exact path = '/getHistory'>
                 <FuelHistory />
             </Route>
-
+            <Route exact path = '/logout'>
+                <Logout />
+            </Route>
             {/*Catch unmatched routes*/}
             <Route>
                 <NotFound />

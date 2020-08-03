@@ -37,8 +37,11 @@ const requests = {
         .set('accept','json')
     },
    get_quotes: () =>
-     requests.get('/quote_history', { }).then(res => res)
+     requests.get('/quote_history', { }).then(res => res),
+   logout: () =>
+     requests.post('/logout', {}).then(res => res)
    };
+
 
 export default {
    Api,
