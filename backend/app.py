@@ -1,12 +1,20 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import backend.modules.authentication as authentication
 import backend.modules.profile_management as profile_management
 import backend.modules.quotes as quotes
 from backend.modules.database_helper import setup_database
+from datetime import datetime
+# import ptvsd
+
+# ptvsd.enable_attach()
+# ptvsd.wait_for_attach()
+
 
 setup_database('https://testurl:20121')
 
 app = Flask(__name__)
+CORS(app)
 
 def success_handler(data):
     response = jsonify(data)
@@ -42,6 +50,38 @@ def authenticate(username: str, password_hash: str):
     else:
         return error_handler(401)
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    """Logs our user
+
+    Supported methods:
+        POST
+
+    Returns:
+        HTTP success if user exists and password hash is a match
+        HTTP 405 otherwise
+    """
+    if authentication.logout_user():
+        return success_handler({})
+    else:
+        return error_handler(405)
+
+@app.route('/register/<username>.<password_hash>', methods=['POST'])
+def register(username: str, password_hash: str):
+    """Checks whether the provided password_hash is valid for given user.
+
+    Supported methods:
+        POST
+
+    Returns:
+        HTTP success if user exists and password hash is a match
+        HTTP 405 otherwise
+    """
+    if authentication.register_user(username, password_hash):
+        return success_handler({})
+    else:
+        return error_handler(401)
+
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     """Gets or Sets users profile data.
@@ -60,7 +100,7 @@ def profile():
     if not authentication.is_authenticated():
         return error_handler(401)
     if request.method == 'POST':
-        return success_handler(profile_management.update_profile(authentication.get_authenticated_user(), request.form))
+        return success_handler(profile_management.update_profile(authentication.get_authenticated_user(), request.get_json()))
     if request.method == 'GET':
         return success_handler(profile_management.get_profile(authentication.get_authenticated_user()))
 
@@ -79,9 +119,8 @@ def quote():
     """
     if not authentication.is_authenticated():
         return error_handler(401)
-    if request.method == 'POST':
-        user = authentication.get_authenticated_user()
-        return quotes.get_quote(user, request.form)
+    user = authentication.get_authenticated_user()
+    return success_handler(quotes.get_quote(user, request.get_json()))
 
 @app.route('/quote_history', methods=['GET'])
 def quote_history():

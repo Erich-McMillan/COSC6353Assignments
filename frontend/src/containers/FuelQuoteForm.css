@@ -1,0 +1,19 @@
+@media all and (min-width: 480px) {
+    .FuelQuoteForm {
+      padding: 60px 0;
+
+    }
+  
+    .FuelQuoteForm form {
+      margin: 0 auto;
+      max-width: 320px;
+      border: 15px;
+    }
+  }
+  
+  .FuelQuoteForm form span.help-block {
+    font-size: 12px;
+    padding-bottom: 10px;
+    color: #999;
+    box-sizing: content-box;
+  }
