@@ -51,7 +51,7 @@ def authenticate(username: str, password_hash: str):
         return error_handler(401)
 
 @app.route('/logout', methods=['POST'])
-def authenticate():
+def logout():
     """Logs our user
 
     Supported methods:

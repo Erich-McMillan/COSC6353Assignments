@@ -14,7 +14,8 @@ def test_quote_from_dict_works(monkeypatch):
          'state':'Tx',
          'zipcode':'77002'
       },
-      'delivery_date':'today'
+      'delivery_date':'today',
+      'price_per_gallon': 10
    }
 
    def mock_calc_quote(*args, **kwargs):
@@ -96,21 +97,3 @@ def test_get_margin_1percent_increase_for_repeat_customers():
    base_margin = quotes.determine_margin(False, False, False)
    bulk_margin = quotes.determine_margin(True, False, False)
    assert (base_margin - bulk_margin - .01) < .0001
-
-def test_calculate_quote_truncates_price_at_cent(monkeypatch):
-   def mock_get_user(*args, **kwargs):
-      return None
-
-   def mock_get_quote_hist(*args, **kwargs):
-      return []
-
-   monkeypatch.setattr(user, 'get_user', mock_get_user)
-   monkeypatch.setattr(quotes, 'get_quote_history', mock_get_quote_hist)
-
-   class mock_del_addr():
-      def __init__(self):
-         self.state = 'CA'
-
-   price = quotes.calculate_quote('jim', 1000, mock_del_addr())
-
-   assert price == '240.00'
