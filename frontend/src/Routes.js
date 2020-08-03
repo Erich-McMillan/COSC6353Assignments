@@ -13,16 +13,16 @@ export default function Routes()
 {
     return (
         <Switch>
-            <Route exact path = '/'>
+            <Route exact path = '/homepage'>
                 <Homepage />
             </Route>
-            <Route exact path = '/login'>            {/*login*/}
+            <Route exact path = '/'>            {/*login*/}
                 <Login />
             </Route>
             <Route exact path = '/register'>
                 <Register />
             </Route>
-            <Route exact path = '/profile'>
+            <Route exact path = '/getProfile'>
                 <Profile />
             </Route>
             <Route exact path = '/getQuote'>

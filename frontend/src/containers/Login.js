@@ -20,7 +20,7 @@ export default function Login(){
         const res = await agent.Api.login(username, password);
         if (res && res.ok) {
           alert('Login successful! Please update your profile before ordering!')
-          history.push('/');
+          history.push('/homepage');
         } else {
           alert('username or password incorrect')
           history.push('/register')

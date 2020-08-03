@@ -27,7 +27,7 @@ export default function Register() {
         const res = await agent.Api.register(username, password);
         if (res && res.ok) {
           alert('Registration successful! Please login to complete your profile.')
-          history.push('/login');
+          history.push('/');
         } else {
           alert('username already taken')
         }
